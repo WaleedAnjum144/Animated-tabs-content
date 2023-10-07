@@ -1,6 +1,7 @@
 const tabs = document.querySelectorAll(".tab-btn");
 const allContent = document.querySelectorAll(".content");
 
+
 // tabs.forEach(button =>{
 //     button.addEventListener("click" , ()=>{
 //         tabs.forEach(button=> {
@@ -32,7 +33,31 @@ tabs.forEach((button,index )=>{
         })
 
         allContent[index].classList.add("active");
+
+        // For local storage 
+        localStorage.setItem("activeTabIndex" , index)
+
+
     });
    
     
 })
+
+// Local storage code 
+
+const activeTabIndex = localStorage.getItem("activeTabIndex");
+if(activeTabIndex !== null){
+    if(activeTabIndex >= 0 && activeTabIndex < tabs.length){
+        handleTabClick(tabs[activeTabIndex]);
+        var line = document.querySelector(".line");
+        line.style.width = tabs[activeTabIndex].offsetWidth + "px" ;
+        line.style.left = tabs[activeTabIndex].offsetLeft + "px" ;
+
+        allContent.forEach(content=>{
+            content.classList.remove("active")
+        })
+
+        allContent[activeTabIndex].classList.add("active");
+        
+    }
+}
